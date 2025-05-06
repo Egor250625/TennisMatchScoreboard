@@ -19,8 +19,6 @@ public class TestRunner {
         FinishedMatchesRepository finishedMatchesRepository = FinishedMatchesRepository.getInstance();
         MatchScore matchScore = new MatchScore(15,16,"Egor","Andrei");
         finishedMatchesRepository.saveMatch(matchScore,15);
-
-
     }
 
 
@@ -39,7 +37,7 @@ public class TestRunner {
             Player player1 = PlayerService.findOrCreatePlayerByName(player11.getName());
             Player player2 = PlayerService.findOrCreatePlayerByName(player22.getName());
 
-            // Создание матча
+
             UUID matchId = OnGoingMatchService.getInstance().startNewMatch(
                     player1.getId(),
                     player2.getId(),
@@ -47,22 +45,22 @@ public class TestRunner {
                     player2.getName()
             );
 
-            // ScoreCalculatorService использует singleton OngoingMatchesService
+
             ScoreCalculatorService scoreCalculatorService = new ScoreCalculatorService(OnGoingMatchService.getInstance());
 
-            // Действие — добавляем очко игроку 1
+
             boolean result = scoreCalculatorService.addPoint(matchId, player1.getId());
 
-            // Получаем матч и проверяем результат
+
             MatchScore matchScore = OnGoingMatchService.getInstance().getMatch(matchId);
             System.out.println(matchScore);
             System.out.println("До: " + matchScore.getPlayer1Points());
             System.out.println("После: " + matchScore.getPlayer1Points());
-            // Проверка
-            // assertTrue(result);
-            // assertEquals(1, matchScore.getPlayer1Points());
-            // assertEquals(0, matchScore.getPlayer2Points());
-//
+
+
+
+
+
             session.getTransaction().commit();
         }
     }
