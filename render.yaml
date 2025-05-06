@@ -6,4 +6,5 @@ services:
     dockerfilePath: ./Dockerfile
     autoDeploy: false
     region: frankfurt
-    envVars: []
+    envVars: [ ]
+    runtime: docker
