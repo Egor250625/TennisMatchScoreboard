@@ -29,8 +29,8 @@
         </div>
         <div>
             <nav class="nav-links">
-                <a class="nav-link" href="#">Home</a>
-                <a class="nav-link" href="#">Matches</a>
+                <a class="nav-link" href="/new-match">Home</a>
+                <a class="nav-link" href="/matches">Matches</a>
             </nav>
         </div>
     </section>
@@ -39,15 +39,40 @@
 <main>
     <div class="container">
         <h1>Matches</h1>
+        <%
+            Integer currentPage = (Integer) request.getAttribute("currentPage");
+            Integer totalPages = (Integer) request.getAttribute("totalPages");
+            String filterParam = request.getParameter("filter_by_player_name");
+            if (currentPage != null && totalPages != null && totalPages > 1) {
+        %>
+        <div class="pagination">
+            <% if (currentPage > 1) { %>
+            <a class="prev"
+               href="?page=<%= currentPage - 1 %><%= filterParam != null ? "&filter_by_player_name=" + filterParam : "" %>">&lt;</a>
+            <% } %>
 
-        <div class="input-container">
-            <input class="input-filter" placeholder="Filter by name" type="text"/>
-            <div>
-                <a href="#">
-                    <button class="btn-filter">Reset Filter</button>
-                </a>
-            </div>
+            <% for (int i = 1; i <= totalPages; i++) { %>
+            <a class="num-page <%= i == currentPage ? "current" : "" %>"
+               href="?page=<%= i %><%= filterParam != null ? "&filter_by_player_name=" + filterParam : "" %>"><%= i %>
+            </a>
+            <% } %>
+
+            <% if (currentPage < totalPages) { %>
+            <a class="next"
+               href="?page=<%= currentPage + 1 %><%= filterParam != null ? "&filter_by_player_name=" + filterParam : "" %>">&gt;</a>
+            <% } %>
         </div>
+        <% } %>
+
+        <form class="input-container" method="get" action="/matches">
+            <input class="input-filter" name="filter_by_player_name"
+                   placeholder="Filter by name" type="text"
+                   value="<%= request.getParameter("filter_by_player_name") != null ?
+                    request.getParameter("filter_by_player_name") : "" %>"/>
+
+            <button class="btn-filter" type="submit">Filter</button>
+        </form>
+
 
         <!-- Table displaying matches -->
         <table class="table-matches">
@@ -64,9 +89,12 @@
                     for (Map<String, String> match : matches) {
             %>
             <tr>
-                <td><%= match.get("player1") %></td>
-                <td><%= match.get("player2") %></td>
-                <td><%= match.get("winner") %></td>
+                <td><%= match.get("player1") %>
+                </td>
+                <td><%= match.get("player2") %>
+                </td>
+                <td><%= match.get("winner") %>
+                </td>
             </tr>
             <%
                 }
@@ -80,20 +108,13 @@
             %>
             </tbody>
         </table>
-
-        <div class="pagination">
-            <a class="prev" href="#"> &lt; </a>
-            <a class="num-page current" href="#">1</a>
-            <a class="num-page" href="#">2</a>
-            <a class="num-page" href="#">3</a>
-            <a class="next" href="#"> &gt; </a>
-        </div>
     </div>
 </main>
 
 <footer>
     <div class="footer">
-        <p>&copy; Tennis Scoreboard, project from <a href="https://zhukovsd.github.io/java-backend-learning-course/">zhukovsd/java-backend-learning-course</a> roadmap.</p>
+        <p>&copy; Tennis Scoreboard, project from <a href="https://zhukovsd.github.io/java-backend-learning-course/">zhukovsd/java-backend-learning-course</a>
+            roadmap.</p>
     </div>
 </footer>
 </body>
