@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: tennis-table
+    env: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    autoDeploy: false
+    region: frankfurt
+    envVars: []
