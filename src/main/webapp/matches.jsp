@@ -64,7 +64,7 @@
         </div>
         <% } %>
 
-        <form class="input-container" method="get" action="/matches">
+        <form class="input-container" method="get" action="/TennisTable/matches">
             <input class="input-filter" name="filter_by_player_name"
                    placeholder="Filter by name" type="text"
                    value="<%= request.getParameter("filter_by_player_name") != null ?

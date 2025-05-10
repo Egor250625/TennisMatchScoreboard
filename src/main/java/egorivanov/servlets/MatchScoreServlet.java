@@ -65,7 +65,7 @@ public class MatchScoreServlet extends HttpServlet {
             return;
         }
 
-        resp.sendRedirect("match-score?uuid=" + matchId);
+        resp.sendRedirect("/TennisTable/match-score?uuid=" + matchId);
 
     }
 }

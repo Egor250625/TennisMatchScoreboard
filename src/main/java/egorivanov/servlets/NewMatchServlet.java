@@ -39,7 +39,7 @@ public class NewMatchServlet extends HttpServlet {
             MatchScore match = new MatchScore(player1.getId(), player2.getId(), player1.getName(), player2.getName());
             onGoingMatchService.addMatch(matchId, match);
 
-            resp.sendRedirect("/match-score?uuid=" + matchId);
+            resp.sendRedirect("/TennisTable/match-score?uuid=" + matchId);
 
         }
     }

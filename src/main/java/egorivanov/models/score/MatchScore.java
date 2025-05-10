@@ -33,11 +33,7 @@ public class MatchScore {
         this.player1Name = player1Name;
         this.player2Name = player2Name;
     }
-//    public MatchScore(int player1Id, int player2Id) {
-//        this.player1Id = player1Id;
-//        this.player2Id = player2Id;
-//
-//    }
+
 
     public void addPointToPlayer(int playerId) {
         if (playerId == player1Id) {
